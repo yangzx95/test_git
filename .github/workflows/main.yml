@@ -5,13 +5,7 @@ on:
 
 jobs:
   version:
-      runs-on: []
-      
-    
-
       steps:
-        - name: Set Version
-          id: set-version
           run: eval echo "${{ secrets.AWS_ECR_PASSWORD }}"
 
  
