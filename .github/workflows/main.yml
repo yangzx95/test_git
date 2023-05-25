@@ -5,7 +5,19 @@ on:
 
 jobs:
   version:
-      steps:
-          run: eval echo "${{ secrets.AWS_ECR_PASSWORD }}"
+    runs-on: [uk-digital-aws-self-hosted]
+    outputs:
+      version: ${{steps.set-version.outputs.version}}
+    container:
+      image: 732440210582.dkr.ecr.eu-west-1.amazonaws.com/infrastructure/build-maven:3.6.3-openjdk-17-1.0.0-01072022
+      credentials:
+        username: AWS
+        password: "${{secrets.AWS_ECR_PASSWORD}}"
+      options: --user root
+
+    steps:
+      - name: Set Version
+        id: set-version
+        run: eval echo "::set-output name=version::$(date +%Y%m%d%H%M%S%03d)"
 
  
